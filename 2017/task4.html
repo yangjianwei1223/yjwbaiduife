@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>IFE JavaScript Task 04</title>
+	<style>
+		#list li{
+			list-style: none;
+			display: inline-block;
+			margin:0 6px 6px 0; 
+			padding:10px 20px;
+			background-color: #ff4965;
+		}
+	</style>
+</head>
+<body>
+	<input type="text" id="input">
+	<button id="leftin">左侧入</button>
+	<button id="rightin">右侧入</button>
+	<button id="leftout">左侧出</button>
+	<button id="rightout">右侧出</button>
+	<ul id="list"></ul>
+
+<script type="text/javascript">
+	var arr=new Array();
+	document.getElementById('leftin').onclick=function(){
+		var num=document.getElementById('input').value;
+		arr.unshift(num);
+		var node=document.createElement("li");
+		node.innerHTML=num;
+		document.getElementById('list').insertBefore(node,document.getElementById('list').firstChild);
+		// listshow();
+	}
+	document.getElementById('rightin').onclick=function(){
+		var num=document.getElementById('input').value;
+		arr.push(num);
+		var node=document.createElement("li");
+		node.innerHTML=num;
+		document.getElementById('list').appendChild(node);
+		// listshow();
+	}
+	document.getElementById('leftout').onclick=function(){
+		arr.shift();
+		document.getElementById('list').removeChild(document.getElementById('list').firstChild);
+		// listshow();
+	}
+	document.getElementById('rightout').onclick=function(){
+		arr.pop();
+		document.getElementById('list').removeChild(document.getElementById('list').lastChild);
+		// listshow();
+	}
+	// function listshow(){
+	// 	var html="";
+	// 	for(var i=0; i<arr.length;i++){
+	// 		html+='<li>'+ arr[i] +'</li>';
+	// 	}
+	// 	document.getElementById('list').innerHTML=html;
+	// }
+</script>
+</body>
+</html>

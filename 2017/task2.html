@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>IFE JavaScript Task 01</title>
+    <title>IFE JavaScript Task 02</title>
   </head>
 <body>
 
@@ -39,6 +39,9 @@ var aqiData = [
       aqiData1.push(aqiData[i]);
     }
   };
+  aqiData1.sort(function(a,b){
+    return b[1]-a[1];
+  })
   for(var m=0;m<aqiData1.length;m++){
     html+='<li>'+ parseInt(m+1) +':' + aqiData1[m][0] +'，'+ aqiData1[m][1] +'</li>';
   }

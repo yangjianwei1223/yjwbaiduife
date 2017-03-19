@@ -1,0 +1,136 @@
+ <!doctype html>
+ <html lang="ch-en">
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>任务八：JavaScript和树（二）</title>
+ 	<style>
+ 	*{margin:0;padding: 0;}
+ 	.wrap{display: flex;border:1px solid #000;width:1600px;margin:0 auto;height:200px;align-items:center;justify-content:center;}
+ 	.wrap div{
+ 		display: flex;
+ 		height:70%;
+ 		width:46%;
+ 		margin:0 3%;
+ 		border:1px solid #000;
+		align-items:center;
+		justify-items:center;
+		background-color: #fff;
+ 	}
+ 	.btn-wrap{
+ 		text-align: center;
+ 		padding-top: 20px;
+ 	}
+ 	.btn-wrap button{
+ 		display: inline-block;
+ 		padding:4px 10px;
+ 	}
+ 	</style>
+ </head>
+ <body>
+ 	<div id="wrap" class="wrap">super
+ 		<div>Car
+ 			<div style="width:48%">Apple
+ 				<div style="margin:0 1px;">poor</div>
+ 				<div style="margin:0 1px;">pig</div>
+ 				<div style="margin:0 1px;">cola</div>
+ 				<div style="margin:0 1px;">soccer</div>
+ 			</div>
+ 			<div>Phone</div>
+ 			<div>
+ 				<div>book</div>
+ 				<div>school</div>
+ 			</div>
+ 		</div>
+ 		<div>Note
+ 			<div>Human
+ 				<div>Code</div>
+ 				<div>Operate</div>
+ 				<div>Mon</div>
+ 			</div>
+ 			<div>Progrom
+ 				<div>bement
+ 					<div>Cat</div>
+ 				</div>
+ 				<div>Glass</div>
+ 			</div>
+ 		</div>
+ 		<div style="width:80px;">Fish</div>
+ 	</div>
+ 	<div class="btn-wrap">
+ 		<button>前序</button>
+ 		<div>
+ 			<input type="text" id="search">
+ 			<button id="check">查询</button>
+ 		</div> 		
+ 	</div>
+ 	<script type="text/javascript">
+ 		var wrap=document.getElementById('wrap');
+ 		var arr=[];
+ 		var btn1=document.getElementsByTagName('button')[0];
+ 		var search=document.getElementById('search');
+ 		var check=document.getElementById('check');
+ 		var searchv;
+  		btn1.onclick = function(){
+ 				reset();
+ 				preorder(wrap);
+ 				console.log(arr.length);
+ 				showWay(0);
+ 		}
+ 		check.onclick=function(){
+ 			searchv=search.value.toLowerCase();
+ 			reset();
+			preorder(wrap);
+			console.log(arr.length);
+			showWay(1);
+ 		}
+ 		function reset(){
+ 			arr=[];
+ 			 var divs=document.getElementsByTagName("div");
+			for(var i=0;i<divs.length;i++){
+				divs[i].style.backgroundColor="#fff";
+			}
+ 		}
+ 		function preorder(node){
+ 			if(node){
+ 				arr.push(node);
+ 				var s=node.children;
+ 				for(var i=0,slen=s.length;i<slen;i++){
+ 					preorder(s[i]);
+ 				}
+ 			}
+ 		}
+ 		function showWay(a){
+ 			var t=0;
+ 			var content=arr[t].firstChild.nodeValue.toLowerCase().replace(/(^\s*)|(\s*$)/g, '');
+ 			arr[t].style.backgroundColor="#00f";
+ 			if(searchv==content && a==1){
+				arr[t].style.backgroundColor="#0f0";
+ 			}
+else{
+ 			var interl=setInterval(function(){
+ 				t++;
+ 				if(t<arr.length){
+ 					var content=arr[t].firstChild.nodeValue.toLowerCase().replace(/(^\s*)|(\s*$)/g, '');
+ 					if(searchv==content && a==1){
+ 						clearInterval(interl);
+ 						arr[t-1].style.backgroundColor="#fff";
+ 						arr[t].style.backgroundColor="#0f0";
+ 					}
+ 					else{
+ 						arr[t-1].style.backgroundColor="#fff";
+ 						arr[t].style.backgroundColor="#00f";
+ 					} 					
+ 				}
+ 				else{
+ 					clearInterval(interl);
+ 					arr[arr.length-1].style.backgroundColor="#fff";
+ 					if(a==1){
+ 						alert("no find");
+ 					}
+ 				} 				
+ 			},1000);
+		}
+	}
+ 	</script>
+ </body>
+ </html>

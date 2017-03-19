@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>IFE JavaScript Task 04</title>
+    <style>
+        #list li{
+            list-style: none;
+            display: inline-block;
+            margin:0 6px 6px 0; 
+            padding:10px 20px;
+            background-color: #ff4965;
+        }
+    </style>
+</head>
+<body>
+    <textarea name="morenum" id="input" cols="30" rows="10"></textarea>
+    <input type="text" id="inquiry" placeholder="输入要查询的">
+    <button id="btn">查询</button>
+    <button id="leftin">左侧入</button>
+    <button id="rightin">右侧入</button>
+    <button id="leftout">左侧出</button>
+    <button id="rightout">右侧出</button>
+    <ul id="list"></ul>
+
+<script type="text/javascript">
+    var arr=new Array();
+    document.getElementById('leftin').onclick=function(){
+        var num=document.getElementById('input').value;
+        var temp=num.split(/[\n,，、\r\s]/);
+        //arr.unshift(num);
+        
+        for(var i=temp.length;i>0;i--){
+            var node=document.createElement("li");
+            node.innerHTML=temp[i-1];
+            document.getElementById('list').insertBefore(node,document.getElementById('list').firstChild);
+        }
+        Array.prototype.push.apply(temp,arr);
+        arr=temp;
+        // listshow();
+    }
+    document.getElementById('rightin').onclick=function(){
+        var num=document.getElementById('input').value;
+        var temp=num.split(/[\n,，、\r\s]/);
+        //arr.push(num);
+        Array.prototype.push.apply(arr,temp);
+        for(var i=0;i<temp.length;i++){
+        var node=document.createElement("li");
+        node.innerHTML=temp[i];
+        document.getElementById('list').appendChild(node);
+    }
+        // listshow();
+    }
+    document.getElementById('leftout').onclick=function(){
+        arr.shift();
+        document.getElementById('list').removeChild(document.getElementById('list').firstChild);
+        // listshow();
+    }
+    document.getElementById('rightout').onclick=function(){
+        arr.pop();
+        document.getElementById('list').removeChild(document.getElementById('list').lastChild);
+        // listshow();
+    }
+    // function listshow(){
+    //  var html="";
+    //  for(var i=0; i<arr.length;i++){
+    //      html+='<li>'+ arr[i] +'</li>';
+    //  }
+    //  document.getElementById('list').innerHTML=html;
+    // }
+    //绑定查询事件
+    document.getElementById('btn').onclick=function(){
+        var str=document.getElementById('inquiry').value;
+        for(var n=0;n<arr.length;n++){
+            if(arr[n].indexOf(str)>=0){
+                document.getElementById('list').getElementsByTagName('li')[n].style.backgroundColor="#333";
+            }
+        }
+    }
+</script>
+</body>
+</html>
